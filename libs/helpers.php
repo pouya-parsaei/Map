@@ -21,7 +21,7 @@ function isAjaxRequest(){
 }
 
 function dd($var){
-    echo "<pre style='color:#055160;background-color:#cff4fc;border-color:#b6effb;z-index: 999; position: absolute;'>";
+    echo "<pre style='color:#055160;background-color:#cff4fc;border-color:#b6effb;z-index: 999; position: absolute;    direction: ltr;z-index: 1000;'>";
     var_dump($var);
     echo "</pre>";
 }
