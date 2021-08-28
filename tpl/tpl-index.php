@@ -62,6 +62,7 @@
         <div class="mapContainer">
             <div id="mapid"></div>
         </div>
+        <img src="assets/img/current.png" class="currentLoc">
     </div>
 <!-- Make sure you put this AFTER Leaflet's CSS -->
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -72,6 +73,13 @@
     <?php if($location): ?>
     L.marker([<?= $location->lat ?>, <?= $location->lng ?>]).addTo(mymap).bindPopup("<?= $location->title ?>").openPopup();
     <?php endif; ?>
+
+$(document).ready(function(){
+    $('img.currentLoc').click(function(){
+        locate();
+    })
+})
+    
 </script>
 </body>
 

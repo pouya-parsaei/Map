@@ -1,62 +1,87 @@
-@font-face{
+@font-face {
     font-family: sahel;
     font-style: normal;
-    font-weight:300;
-    src: url('../fonts/Sahel-Light.woff')format('woff');
+    font-weight: 300;
+    src: url('../fonts/Sahel-Light.woff') format('woff');
 }
-@font-face{
+
+@font-face {
     font-family: sahel;
     font-style: normal;
-    font-weight:400;
-    src: url('../fonts/Sahel.woff')format('woff');
+    font-weight: 400;
+    src: url('../fonts/Sahel.woff') format('woff');
 }
-@font-face{
+
+@font-face {
     font-family: sahel;
     font-style: normal;
-    font-weight:500;
-    src: url('../fonts/Sahel-Bold.woff')format('woff');
+    font-weight: 500;
+    src: url('../fonts/Sahel-Bold.woff') format('woff');
 }
-@font-face{
+
+@font-face {
     font-family: sahel;
     font-style: normal;
-    font-weight:700;
-    src: url('../fonts/Sahel-Black.woff')format('woff');
+    font-weight: 700;
+    src: url('../fonts/Sahel-Black.woff') format('woff');
 }
-*{
-    font-family: sahel;
-}
+
 html,
 body,
-.mapContainer{
-
-}
-.head{
-    direction: rtl;
-}
-#search{
-    line-height: 3;
-    width: 20%;
-    border: 3px solid beige;
+.mapContainer {
     padding: 0;
-    border-radius: 10px;
-    text-align: center;
+    margin: 0;
+    direction: rtl;
+    text-align: right;
+}
+
+* {
     font-family: sahel;
-    font-size: 20px;
-    color: teal;
-    font-weight: bold;
-    z-index: 999;
-    position: absolute;
-    margin: 5% 5%;
 }
 
-#mapid{
-    width: 100%;
-    height: 400px;
+*:focus {
+    outline: none;
 }
 
-.main{
+.mapContainer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+#map {
     position: relative;
+    height: 100%;
 }
+
+.head {
+    width: 100%;
+    position: fixed;
+    top: 30px;
+    z-index: 999;
+}
+
+.head #search {
+    float: right;
+    margin-right: 50px;
+    text-align: right;
+    border: 1px solid #d8d6d2;
+    border-radius: 5px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 10px;
+    padding: 10px 20px;
+    direction: rtl;
+    font-family: sahel;
+    opacity: 0.9;
+    outline: 0;
+    width: 400px;
+}
+
+
 /* Modal Overlay Styles */
 
 .modal-overlay {
@@ -71,7 +96,6 @@ body,
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    opacity: 0.9;
 }
 
 .modal-overlay .modal {
@@ -141,6 +165,54 @@ input[type="submit"] {
 input[type="submit"]:hover {
     opacity: 0.7;
 }
+
+
+/* Search Box new */
+
+.clear {
+    clear: both;
+}
+
+.search-box {
+    width: fit-content;
+}
+
+.search-results {
+    margin: -3px 50px 0 0;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 12px;
+    border-radius: 0 0 10px 10px;
+    border: 1px solid #d9d7d4;
+}
+
+.result-item {
+    padding: 10px 5px;
+    border-bottom: 0px solid #f2f2f2;
+    max-width: 400px;
+}
+
+.result-item:hover {
+    background: #f2f2f2;
+    cursor: pointer;
+}
+
+.result-item span,
+.result-item a {
+    display: inline-block;
+}
+
+.result-item span.loc-type {
+    background: #149999;
+    color: #fff;
+    padding: 0px 7px 2px 7px;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+.result-item span.loc-title {
+    font-size: 15px;
+}
+
 img.currentLoc {
     position: fixed;
     bottom: 20px;
