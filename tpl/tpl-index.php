@@ -69,6 +69,7 @@
         <div class="mapContainer">
             <div id="mapid"></div>
         </div>
+        
         <img src="assets/img/current.png" class="currentLoc">
     </div>
     <!-- Make sure you put this AFTER Leaflet's CSS -->
@@ -84,6 +85,11 @@
         $(document).ready(function() {
             $('img.currentLoc').click(function() {
                 locate();
+
+            });
+            $('img.gas-stations').click(function() {
+                locate();
+
             });
             $('#search').keyup(function() {
                 const input = $(this);
@@ -100,6 +106,66 @@
                     }
                 })
             })
+            // Use Map Events
+            mymap.on('zoomend', function() {
+                // 1 : get bound lines
+                var northLine = mymap.getBounds().getNorth();
+                var westLine = mymap.getBounds().getWest();
+                var southLine = mymap.getBounds().getSouth();
+                var eastLine = mymap.getBounds().getEast();
+                // 2 : send bound lines to server
+
+                $.ajax({
+                    url: 'http://7learn.php/09-7Map/process/showLocationsInWindow.php',
+                    method: 'post',
+                    data: {
+                        north: northLine,
+                        west: westLine,
+                        south: southLine,
+                        east: eastLine,
+                    },
+                    success: function(response) {
+                        // 3 : search locations in map windows (done)
+                        // 4 : display location markers in map
+                        var returnedLocations = JSON.parse(response);
+                        Object.keys(returnedLocations).forEach(function(key, index) {
+                            locationInWindow = [this[key].lat, [this[key].lng]];
+                            L.marker(locationInWindow).addTo(mymap);
+                        }, returnedLocations);
+                    }
+                });
+
+
+            });
+             mymap.on('moveend', function() {
+
+                // 1 : get bound lines
+                var northLine = mymap.getBounds().getNorth();
+                var westLine = mymap.getBounds().getWest();
+                var southLine = mymap.getBounds().getSouth();
+                var eastLine = mymap.getBounds().getEast();
+                // 2 : send bound lines to server
+
+                $.ajax({
+                    url: 'http://7learn.php/09-7Map/process/showLocationsInWindow.php',
+                    method: 'post',
+                    data: {
+                        north: northLine,
+                        west: westLine,
+                        south: southLine,
+                        east: eastLine,
+                    },
+                    success: function(response) {
+                        // 3 : search locations in map windows (done)
+                        // 4 : display location markers in map
+                        var returnedLocations = JSON.parse(response);
+                        Object.keys(returnedLocations).forEach(function(key, index) {
+                            locationInWindow = [this[key].lat, [this[key].lng]];
+                            L.marker(locationInWindow).addTo(mymap);
+                        }, returnedLocations);
+                    }
+                });
+            }); 
         })
     </script>
 </body>
