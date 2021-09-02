@@ -37,10 +37,10 @@
                         <div class="field-row">
                             <div class="field-title">نوع</div>
                             <div class="field-content">
-                                
+
                                 <select name="type" id='l-type'>
-                                <?php foreach(locationTypes as $key=>$value):?>
-                                    <option value="<?= $key ?>"><?= $value ?></option>
+                                    <?php foreach (locationTypes as $key => $value) : ?>
+                                        <option value="<?= $key ?>"><?= $value ?></option>
                                     <?php endforeach ?>
                                 </select>
                             </div>
@@ -57,30 +57,51 @@
             </div>
         </div>
         <div class="head">
-            <input type="text" id="search" placeholder="دنبال کجا میگردی؟">
+            <div class="search-box">
+                <input type="text" id="search" placeholder="دنبال کجا می گردی؟" autocomplete="off">
+                <div class="clear"></div>
+                <div class="search-results" style="display: none">
+
+                </div>
+
+            </div>
         </div>
         <div class="mapContainer">
             <div id="mapid"></div>
         </div>
         <img src="assets/img/current.png" class="currentLoc">
     </div>
-<!-- Make sure you put this AFTER Leaflet's CSS -->
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script> -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="assets/js/scripts.js"></script>
-<script>
-    <?php if($location): ?>
-    L.marker([<?= $location->lat ?>, <?= $location->lng ?>]).addTo(mymap).bindPopup("<?= $location->title ?>").openPopup();
-    <?php endif; ?>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script> -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="assets/js/scripts.js"></script>
+    <script>
+        <?php if ($location) : ?>
+            L.marker([<?= $location->lat ?>, <?= $location->lng ?>]).addTo(mymap).bindPopup("<?= $location->title ?>").openPopup();
+        <?php endif; ?>
 
-$(document).ready(function(){
-    $('img.currentLoc').click(function(){
-        locate();
-    })
-})
-    
-</script>
+        $(document).ready(function() {
+            $('img.currentLoc').click(function() {
+                locate();
+            });
+            $('#search').keyup(function() {
+                const input = $(this);
+                const searchresult = $('.search-results');
+                searchresult.html('در حال جستجو...')
+                $.ajax({
+                    url: '<?= BASE_URL . 'process/search.php' ?>',
+                    method: 'POST',
+                    data: {
+                        keyword: input.val()
+                    },
+                    success: function(response) {
+                        searchresult.slideDown().html(response);
+                    }
+                })
+            })
+        })
+    </script>
 </body>
 
 

@@ -13,6 +13,8 @@ global $pdo;
 $conditions = '';
 if (isset($params['verified']) && in_array($params['verified'],['0','1'])) {
     $conditions = "WHERE verified = {$params['verified']}";
+}else if (isset($params['keyword'])) {
+    $conditions = "WHERE verified = 1 AND title LIKE '%{$params['keyword']}%'";
 }
 $sql = "SELECT * FROM `locations` $conditions";
 $stmt = $pdo ->prepare($sql);

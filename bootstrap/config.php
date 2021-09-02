@@ -8,9 +8,9 @@ $database_config = (object)[
 
 $admins = [
     'admin' => '$2y$10$FxzasoM32OgSoSfjpKvRY.OVLVHkv0ihmj1OMfoQjyYiVWAMXP5xy',
-    'pouya' => '$2y$10$T9u..W8O6xWvrRHfte2RX.jeaIdFEOG1Vz4Ig4ejk6XUF73dFCvoe'
+    'pouya' => '$2y$10$kKOsBeho27LNbFVGqAKr3eN2VU2bbdrRPg6lS0JOpNewXQZnl5NIy'
 ];
-
+/* echo password_hash('pouya@12345',PASSWORD_BCRYPT); */
 
 
 
